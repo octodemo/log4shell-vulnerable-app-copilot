@@ -24,6 +24,6 @@ jobs:
 
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@main
-        with:
+        #with:
           #gradle-project-path: "gradle-example"
-          gradle-build-module: ":app"
+          #gradle-build-module: ":app"
