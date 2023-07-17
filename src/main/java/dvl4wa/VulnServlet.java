@@ -22,7 +22,11 @@ public class VulnServlet extends HttpServlet {
 
       if (xlog != null) {
         writer.write("Logging to console using vulnerable log4j2!\n");
-        logger.info("x-log: " + xlog);
+        if (xlog != null) {
+          String sanitizedXlog = StringEscapeUtils.escapeHtml4(xlog);
+          logger.info("x-log: " + sanitizedXlog);
+          writer.write("Logging to console using vulnerable log4j2!\n");
+        }
       }      
       writer.close();
     } catch(Exception e) {
