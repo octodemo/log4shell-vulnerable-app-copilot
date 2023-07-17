@@ -21,8 +21,10 @@ public class VulnServlet extends HttpServlet {
       Writer writer = res.getWriter();
 
       if (xlog != null) {
+        // Sanitize user input to prevent Log4j LDAP JNDI injection
+        String sanitizedXlog = xlog.replaceAll("[^a-zA-Z0-9_\\-\\.]", "_");
+        logger.info("x-log: " + sanitizedXlog);
         writer.write("Logging to console using vulnerable log4j2!\n");
-        logger.info("x-log: " + xlog);
       }      
       writer.close();
     } catch(Exception e) {
