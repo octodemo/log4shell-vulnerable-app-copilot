@@ -14,19 +14,19 @@ public class VulnServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException {
     Logger logger = LogManager.getLogger();
     try {
-      Map<String, String> headers = Collections.list(req.getHeaderNames()).stream().collect(Collectors.toMap(h -> h, req::getHeader));
+      // get x-log header
+      String xlog = req.getHeader("x-log");
+        
       res.setContentType("text/plain; charset=utf-8");
       Writer writer = res.getWriter();
-      if(headers.containsKey("x-log")) {
+
+      if (xlog != null) {
         writer.write("Logging to console using vulnerable log4j2!\n");
-        logger.info(headers.get("x-log"));
-      } else {
-        writer.write("Hello world\n");
-      }
+        logger.info("x-log: " + xlog);
+      }      
       writer.close();
     } catch(Exception e) {
       throw new ServletException(e.getMessage(), e);
     }
   }
 }
-
